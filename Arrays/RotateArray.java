@@ -24,12 +24,21 @@ public static void rotate(int[] a, int k) {
   int firstPartLength = a.length - k;
   
   //reverse first half, reverse second half and then reverse whole array
-  reverse(a, 0, firstPartLength-1);
+        reverse(a, 0, firstPartLength-1);
 	reverse(a, firstPartLength, a.length-1);
 	reverse(a, 0, a.length-1);
 	
 }
   public static void reverse(int[] a , start,end){
   //check for edge conditions 
-  
+  if(a == null || a.length == 1) 
+    return;
+  // reverse the array , swap last element with first, second last with second and so on
+  while(start<end){
+  	int temp = a[start];
+  	a[start] = a[end];
+  	a[end] = temp;
+  	start++;
+  	end--;
+  }
 }
