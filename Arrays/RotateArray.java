@@ -16,5 +16,20 @@ public static void rotate(int[] a, int k) {
   if(a == null || a.length == 0 || k<0){
     throw new IllegalArgumentException("Please check input");
   }
+  //make sure k falls in range of n 
+  if(k > a.length){
+		k = k % a.length;
+	}
   //split the array 
+  int firstPartLength = a.length - k;
+  
+  //reverse first half, reverse second half and then reverse whole array
+  reverse(a, 0, firstPartLength-1);
+	reverse(a, firstPartLength, a.length-1);
+	reverse(a, 0, a.length-1);
+	
+}
+  public static void reverse(int[] a , start,end){
+  //check for edge conditions 
+  
 }
