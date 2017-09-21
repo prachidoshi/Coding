@@ -1,0 +1,73 @@
+package LinkedList;
+
+class ListNode{
+	ListNode next;
+	int data;
+	
+	public ListNode(int val){
+		data = val;
+		next=null;
+	}	
+}
+public class ReverseList {
+	/*
+	 * Function to create a LinkedList
+	 * 1->2->3->4->null
+	 */
+	public static ListNode createLinkedList(){
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+		return head;
+	}
+	
+	/*
+	 * Function to print LinkedList
+	 */
+	public static void printList(ListNode head){
+		ListNode p1 = head;
+		while(p1!=null){
+			System.out.print(p1.data+" ");
+			p1 = p1.next;
+		}
+	}
+	
+	public static ListNode reverseList(ListNode head){
+		
+		//check for boundary conditions i.e. only 1 or no element in list   
+		if(head == null || head.next ==null)
+			return head;		
+		//p1 and p2 pointers to track neighboring nodes
+		ListNode p1 = head; 
+		ListNode p2 = head.next;
+	    head.next = null;
+		
+		while(p1!=null || p2!=null){
+			ListNode temp = p2.next;
+			//reverse the pointer 
+			p2.next = p1;
+			//move pointers 
+			p1=p2;
+			  if(temp!=null){
+				  p2=temp;
+			  }else break;
+		}
+		return p2;
+		
+	}
+	
+	public static void main(String[] args){
+		//create a Linked List
+		ListNode head = createLinkedList();
+		System.out.println("Originial List");
+		//printList
+		printList(head);
+		//ReverseList
+		ListNode newHead = reverseList(head);
+		System.out.println("Reverse List");
+
+		//printList
+		printList(newHead);
+	}
+}
