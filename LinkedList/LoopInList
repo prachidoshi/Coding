@@ -1,0 +1,55 @@
+package LinkedList;
+
+public class LoopInList {
+	/*
+	 * Function to check if loop inside link list
+	 * Solution : The idea is to have two pointers. One slow and one fast. If there is cycle/loop in list the two pointers will meet 
+	 */
+	public static Boolean checkLoop(ListNode head){
+		ListNode slow = head; //slow pointer
+		ListNode fast = head; // fast pointer
+		
+		//if only one node or empty list , no cycle in list 
+		if(slow == null || slow.next==null)
+			return false;
+		
+		while(true)	{
+			slow = slow.next ;
+			if(fast.next.next != null) 
+				fast = fast.next.next;
+			else // we have reached end of list
+				return false;
+			if(slow == null || fast == null) // if any node becomes null we reached end
+			  return false ; 
+			if(slow == fast) // condition when cycle is existing 
+				return true;
+			
+		}
+			
+	}
+	
+	public static void main(String[] args){
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+		head.next.next.next.next = head.next;//connect 2 to 4 
+		
+		ListNode list2 = new ListNode(1);
+		list2.next = new ListNode(2);
+		list2.next.next = new ListNode(3);
+		list2.next.next.next = new ListNode(4);
+		list2.next.next.next.next=null;
+		
+		if(checkLoop(head))
+			System.out.println("Cycle is there");
+		else 
+			System.out.println("no cycle");
+		
+		if(checkLoop(list2))
+			System.out.println("Cycle is there");
+		else 
+			System.out.println("no cycle");
+	}
+	
+}
