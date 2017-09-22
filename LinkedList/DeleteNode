@@ -1,0 +1,8 @@
+//1->2->3->4->5->6 we want to delete 3 and have link to 3 . So copy value of 4 in 3 and link 3 to 5
+public class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+        
+    }
+}
