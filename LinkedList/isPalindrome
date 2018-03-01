@@ -1,0 +1,70 @@
+
+
+
+boolean isListPalindrome(ListNode<Integer> l) {
+
+ if(l==null){
+  return true;
+ }
+ 
+ ListNode slow = l;
+ ListNode fast = l;
+ 
+ while(fast!=null && fast.next!=null){
+  slow = slow.next;
+  fast = fast.next.next;
+ }
+
+ ListNode list1 = l;
+ ListNode list2 = slow.next;
+ slow.next = null;
+ 
+ //reverse second list ;
+ list2 = reverseList(list2);
+ return compareTwoList(list1,list2);
+}
+/*Function to compare two lists
+ * 
+ */ 
+boolean compareTwoList(ListNode head1, ListNode head2){
+ if(head1==null && head2 ==null){
+  return true;
+ }
+ 
+
+ ListNode p1 = head1; //pointer to traverse first list 
+ ListNode p2 = head2; //pointer to traverse second list 
+ 
+ while(p1!=null && p2!=null){
+   if(!p1.value.equals(p2.value)){
+    System.out.println("unequal list");
+    return false;
+   }
+  p1=p1.next;
+  p2=p2.next;
+ }
+ System.out.println("equal list");
+ return true;
+}
+/*Function to perform reverse of linked list
+ * 
+ */ 
+ListNode reverseList(ListNode head){
+ if(head == null || head.next==null){
+   return head;
+ }
+ 
+ ListNode p1 = head;
+ ListNode p2 = head.next;
+ head.next = null;
+ 
+ while(p1!=null && p2!=null){
+  ListNode temp = p2.next ;
+  p2.next = p1;
+  p1=p2;
+  if(temp!=null){
+    p2=temp;
+  }else break;
+ }
+ return p2;
+}
