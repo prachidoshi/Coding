@@ -1,0 +1,47 @@
+package DynamicProgramming;
+
+import java.util.Arrays;
+
+public class CoinGame {
+    public static void main(String[] args){
+
+    }
+    /*
+Game 1:
+A and B are playing a game. At the beginning there are n coins. Given two more numbers x and y. In each move a player can pick x or y or l coins. A always starts the game. The player who picks the last coin wins the game. For a given value of n, find whether A will win the game or not if both are playing optimally.
+Input :  n = 5, x = 3, y = 4
+Output : A
+There are 5 coins, every player can pick 1 or
+3 or 4 coins on his/her turn.
+A can win by picking 3 coins in first chance.
+Now 2 coins will be left so B will pick one
+coin and now A can win by picking the last coin.
+
+Input : 2 3 4
+Output : B
+    */
+
+    public boolean findWinner(int x, int y, int n){
+        //dp[i] = true if A is winner i = total coins
+        boolean[] dp = new boolean[n+1];
+        Arrays.fill(dp,false);
+
+        //initial values
+        dp[0] = false;
+        dp[1] = true;
+
+        for(int i=2;i<=n;i++){
+            // If A losses any of i-1 or i-x
+            // or i-y game then he will
+            // definitely win game i
+            if(i-1>=0 && dp[i-1] == false){
+                dp[i] = true;
+            }else if(i-x >=0 && dp[i-x] == false){
+                dp[i] = true;
+            }else if(i-y >=0 && dp[i-y] == false){
+                dp[i] = true;
+            }
+        }
+        return dp[n];
+    }
+}
