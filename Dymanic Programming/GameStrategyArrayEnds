@@ -1,0 +1,71 @@
+public class GameStrategyArrayEnds {
+    /*
+Question :
+Consider a row of n coins of values v1 . . . vn, where n is even. We play a game against an opponent by alternating turns. In each turn, a player selects either the first or last coin from the row, removes it from the row permanently, and receives the value of the coin. Determine the maximum possible amount of money we can definitely win if we move first.
+
+F(i, j) represents the maximum value the user
+can collect from i'th coin to j'th coin.
+
+F(i, j) = Max(Vi + min(F(i+2, j), F(i+1, j-1) ),
+              Vj + min(F(i+1, j-1), F(i, j-2) ))
+As user wants to maximise the number of coins.
+
+Base Cases
+    F(i, j) = Vi           If j == i
+    F(i, j) = max(Vi, Vj)  If j == i + 1
+
+     */
+    public static void main(String[] args){
+        int arr1[] = { 8, 15, 3, 7 };
+        int n = arr1.length;
+        System.out.println(
+                ""
+                        + optimalStrategyOfGame(arr1));
+
+        int arr2[] = { 2, 2, 2, 2 };
+        n = arr2.length;
+        System.out.println(
+                ""
+                        + optimalStrategyOfGame(arr2));
+
+        int arr3[] = { 20, 30, 2, 2, 2, 10 };
+        n = arr3.length;
+        System.out.println(
+                ""
+                        + optimalStrategyOfGame(arr3));
+    }
+
+    //DP solution
+    public static int optimalStrategyOfGame(int[] arr){
+        int n = arr.length;
+        //dp table to store intermediate values
+        int[][] dp = new int[n][n];
+
+
+        //similar two pointer like palindrome question
+
+        //length = 1
+        for(int i=0;i<n;i++){
+            dp[i][i] = arr[i];
+        }
+        //length = 2
+        for(int i=0;i<n-1;i++){
+            dp[i][i+1] = Math.max(arr[i],arr[i+1]);
+        }
+        int x, y, z;
+        for(int len =3;len<=n;len++) {
+            for (int i = 0; i < n - len + 1; i++) {
+                    int j = i+len-1;
+                // Here x is value of F(i+2, j),
+                // y is F(i+1, j-1) and z is
+                // F(i, j-2) in above recursive formula
+                   x = ((i+2)<=j) ? dp[i+2][j] : 0;
+                   y = ((i+1)<=(j-1)) ? dp[i+1][j-1] : 0;
+                   z = (i<=j-2) ? dp[i][j-2] : 0;
+
+                   dp[i][j] =  Math.max(arr[i] + Math.min(x,y), arr[j] + Math.min(y,z));
+                }
+            }
+        return dp[0][n-1];
+    }
+}
